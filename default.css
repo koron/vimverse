@@ -20,19 +20,25 @@ body {
   position: relative;
 }
 
-.vimberse .star {
-  position: absolute;
-  transition-property: top, left, margin-left, margin-top, width, height;
+.vimberse .star,
+.vimberse .star .name {
   transition-duration: 4s;
   transition-delay: 0s;
   transition-timing-function: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+}
 
+.vimberse .star {
+  position: absolute;
+
+  transition-property: top, left, margin-left, margin-top, width, height;
   margin-left: -1px;
   margin-top: -1px;
   width: 2px;
   height: 2px;
+
   padding: 0;
   background-color: #ffcccc;
+  overflow: hidden;
 }
 
 .vimberse .star.moved {
@@ -40,4 +46,24 @@ body {
   margin-top: -150px;
   width: 300px;
   height: 300px;
+}
+
+.vimberse .star .name {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+
+  transition-property: bottom, font-size;
+  bottom: 0px;
+  font-size: 0px;
+  font-weight: bold;
+
+  white-space: nowrap;
+  text-align: center;
+  color: #666666;
+}
+
+.vimberse .star.moved .name {
+  bottom: 16px;
+  font-size: 32px;
 }

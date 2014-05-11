@@ -1,5 +1,5 @@
 (function(window, document) {
-  var DEBUG = true;
+  var DEBUG = 1;
 
   var vimberse = document.getElementsByClassName('vimberse')[0];
   var vimmersSource;
@@ -18,6 +18,9 @@
     var star = document.createElement('div');
     star.setAttribute('class', 'star');
     star.setAttribute('style', pos2style(pos.start));
+    if (options.build) {
+      options.build(star, document);
+    }
 
     // transition-end event to remove star.
     var removeStar = (function() {
@@ -29,11 +32,13 @@
         }
       }
     }).bind(star);
-    star.addEventListener('transitionend', removeStar);
-    star.addEventListener('webkitTransitionEnd', removeStar);
-    star.addEventListener('oTransitionEnd', removeStar);
+    if (!DEBUG) {
+      star.addEventListener('transitionend', removeStar);
+      star.addEventListener('webkitTransitionEnd', removeStar);
+      star.addEventListener('oTransitionEnd', removeStar);
+    }
 
-    vimberse.appendChild(star);
+    vimberse.insertBefore(star, vimberse.firstChild);
 
     setTimeout(function() {
       star.setAttribute('class', 'star moved');
@@ -97,14 +102,34 @@
     return vimmersQueue.splice(0, 1)[0];
   }
 
+  function addClass(element, className) {
+    var attr = element.getAttribute('class');
+    var classes = attr ? attr.split(/\s+/) : [];
+    classes.push(className);
+    element.setAttribute('class', classes.join(' '));
+  }
+
+  function buildVimStar(vimmer, star, document) {
+    // TODO: avatar icon.
+    var name = document.createElement('div');
+    name.appendChild(document.createTextNode(vimmer.name));
+    addClass(name, 'name');
+    star.appendChild(name);
+  }
+
   function addVimStar(vimmer, options) {
+    options.build = function(star, document) {
+      buildVimStar(vimmer, star, document);
+    }
     addStar(options);
   }
 
   function startVimberse(vimmers) {
     vimmersSource = vimmers;
     vimmersQueue = Vimmers.shuffle(vimmersSource, true);
-    addVimStar(fetchVimmer(), firstVimStar());
+    var bram = fetchVimmer();
+    console.log('Bram', bram);
+    addVimStar(bram, firstVimStar());
   }
 
   window.addEventListener('load', function() {
