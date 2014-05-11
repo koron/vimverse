@@ -1,5 +1,9 @@
 (function(window, document) {
+  var DEBUG = true;
+
   var vimberse = document.getElementsByClassName('vimberse')[0];
+  var vimmersSource;
+  var vimmersQueue = [];
 
   function addStar(options) {
     if (options == void 0) {
@@ -38,7 +42,7 @@
   }
 
   function calcPos() {
-    var w = document.body.clientWidth, h = document.body.clientHeight;
+    var w = vimberse.clientWidth, h = vimberse.clientHeight;
     var t = (w + h) * 2;
     var f = [ w / t, w * 2 / t, (w * 2 + h) / t ];
     var r = Math.random();
@@ -67,20 +71,44 @@
     return 'left:' + p.x + 'px; top:' + p.y + 'px;';
   }
 
-  function firstStar() {
+  function firstVimStar() {
     return {
       endPos: {
-        x: Math.floor(document.body.clientWidth / 2),
-        y: Math.floor(document.body.clientHeight / 2)
+        x: Math.floor(vimberse.clientWidth / 2),
+        y: Math.floor(vimberse.clientHeight / 2)
       },
       onEnd: function() {
-        setInterval(addStar, 250);
+        if (!DEBUG) {
+          setInterval(addNextVimStar, 250);
+        }
       }
     }
   }
 
+  function addNextVimStar() {
+    var vimmer = fetchVimmer();
+    addVimStar(vimmer, {});
+  }
+
+  function fetchVimmer() {
+    if (vimmersQueue.length <= 0) {
+      vimmersQueue = Vimmers.shuffle(vimmersSource, false);
+    }
+    return vimmersQueue.splice(0, 1)[0];
+  }
+
+  function addVimStar(vimmer, options) {
+    addStar(options);
+  }
+
+  function startVimberse(vimmers) {
+    vimmersSource = vimmers;
+    vimmersQueue = Vimmers.shuffle(vimmersSource, true);
+    addVimStar(fetchVimmer(), firstVimStar());
+  }
+
   window.addEventListener('load', function() {
-    //addStar(firstStar());
+    Vimmers.load(startVimberse);
   });
 
 })(this, this.document);
