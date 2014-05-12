@@ -54,23 +54,12 @@
 
   function calcPos() {
     var w = vimverse.clientWidth, h = vimverse.clientHeight;
-    var t = (w + h) * 2;
-    var f = [ w / t, w * 2 / t, (w * 2 + h) / t ];
-    var r = Math.random();
-    var x, y;
-    if (r < f[0]) {
-      x = Math.floor(r * t);
-      y = 0;
-    } else if (r < f[1]) {
-      x = Math.floor((r - f[0]) * t);
-      y = h;
-    } else if (r < f[2]) {
-      x = 0;
-      y = Math.floor((r - f[1]) * t);
-    } else {
-      x = w;
-      y = Math.floor((r - f[2]) * t);
-    }
+
+    var a = (w + 300) / 2, b = (h + 300) / 2;
+    var l = Math.sqrt(a * a + b * b);
+    var phi = 2 * Math.PI * Math.random();
+    var x = Math.floor(w / 2 + l * Math.sin(phi));
+    var y = Math.floor(h / 2 + l * Math.cos(phi));
 
     return {
       start: { x: Math.floor(w / 2), y: Math.floor(h / 2) },
@@ -90,7 +79,7 @@
       },
       onEnd: function() {
         if (!DEBUG) {
-          setInterval(addNextVimStar, 250);
+          setInterval(addNextVimStar, 200);
         }
       }
     }
