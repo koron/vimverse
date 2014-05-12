@@ -12,7 +12,7 @@ body {
   padding: 0;
 }
 
-.vimberse {
+.vimverse {
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -22,14 +22,14 @@ body {
   color: #fff;
 }
 
-.vimberse .star,
-.vimberse .star .name {
+.vimverse .star,
+.vimverse .star .name {
   transition-duration: 4s;
   transition-delay: 0s;
   transition-timing-function: cubic-bezier(0.95, 0.05, 0.795, 0.035);
 }
 
-.vimberse .star {
+.vimverse .star {
   position: absolute;
 
   transition-property: top, left, margin-left, margin-top, width, height, box-shadow;
@@ -48,11 +48,11 @@ body {
   color: #000;
 }
 
-.vimberse .star {
+.vimverse .star {
   box-shadow: 0 0 50px -10px;
 }
 
-.vimberse .star.moved {
+.vimverse .star.moved {
   margin-left: -150px;
   margin-top: -150px;
   width: 300px;
@@ -60,7 +60,7 @@ body {
   box-shadow: 0 0 50px -10px;
 }
 
-.vimberse .star .name {
+.vimverse .star .name {
   position: absolute;
   left: 0px;
   right: 0px;
@@ -74,12 +74,12 @@ body {
   text-align: center;
 }
 
-.vimberse .star.moved .name {
+.vimverse .star.moved .name {
   bottom: 16px;
   font-size: 32px;
 }
 
-.vimberse .star .avatar {
+.vimverse .star .avatar {
   position: absolute;
 
   left: 17%;
@@ -88,7 +88,7 @@ body {
   height: 66%;
 }
 
-.vimberse .star .avatar img {
+.vimverse .star .avatar img {
   width: 100%;
   height: 100%;
   border-radius: 10%;

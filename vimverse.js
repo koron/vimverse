@@ -1,7 +1,7 @@
 (function(window, document) {
   var DEBUG = 0;
 
-  var vimberse = document.getElementsByClassName('vimberse')[0];
+  var vimverse = document.getElementsByClassName('vimverse')[0];
   var vimmersSource;
   var vimmersQueue = [];
 
@@ -38,7 +38,7 @@
       star.addEventListener('oTransitionEnd', removeStar);
     }
 
-    vimberse.insertBefore(star, vimberse.firstChild);
+    vimverse.insertBefore(star, vimverse.firstChild);
 
     setTimeout(function() {
       star.setAttribute('class', 'star moved');
@@ -47,7 +47,7 @@
   }
 
   function calcPos() {
-    var w = vimberse.clientWidth, h = vimberse.clientHeight;
+    var w = vimverse.clientWidth, h = vimverse.clientHeight;
     var t = (w + h) * 2;
     var f = [ w / t, w * 2 / t, (w * 2 + h) / t ];
     var r = Math.random();
@@ -79,8 +79,8 @@
   function firstVimStar() {
     return {
       endPos: {
-        x: Math.floor(vimberse.clientWidth / 2),
-        y: Math.floor(vimberse.clientHeight / 2)
+        x: Math.floor(vimverse.clientWidth / 2),
+        y: Math.floor(vimverse.clientHeight / 2)
       },
       onEnd: function() {
         if (!DEBUG) {
