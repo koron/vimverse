@@ -30,4 +30,14 @@
     return dst;
   }
 
+  Vimmers.avatarImgSrc = function(vimmer) {
+    if (vimmer.logo) {
+      return vimmer.logo;
+    } else if (vimmer.twitter_icon) {
+      return vimmer.twitter_icon;
+    } else {
+      return 'default_avatar.png'
+    }
+  }
+
 })(this, this.document);

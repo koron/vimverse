@@ -1,5 +1,5 @@
 (function(window, document) {
-  var DEBUG = 1;
+  var DEBUG = 0;
 
   var vimberse = document.getElementsByClassName('vimberse')[0];
   var vimmersSource;
@@ -109,8 +109,23 @@
     element.setAttribute('class', classes.join(' '));
   }
 
+  function getVimmerImg(vimmer) {
+    if (vimmer._imgTag) {
+      return vimmer._imgTag;
+    }
+    var img = document.createElement('img');
+    img.src = Vimmers.avatarImgSrc(vimmer);
+    vimmer._imgTag = img;
+    return img;
+  }
+
   function buildVimStar(vimmer, star, document) {
-    // TODO: avatar icon.
+    // Avatar icon.
+    var avatar = document.createElement('div');
+    avatar.appendChild(getVimmerImg(vimmer));
+    addClass(avatar, 'avatar');
+    star.appendChild(avatar);
+    // Name.
     var name = document.createElement('div');
     name.appendChild(document.createTextNode(vimmer.name));
     addClass(name, 'name');
@@ -128,7 +143,6 @@
     vimmersSource = vimmers;
     vimmersQueue = Vimmers.shuffle(vimmersSource, true);
     var bram = fetchVimmer();
-    console.log('Bram', bram);
     addVimStar(bram, firstVimStar());
   }
 
