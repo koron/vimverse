@@ -23,7 +23,12 @@
     }
 
     // transition-end event to remove star.
+    var timeoutId = null;
     var removeStar = (function() {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
       var p = this.parentNode;
       if (p) {
         p.removeChild(this);
@@ -36,6 +41,7 @@
       star.addEventListener('transitionend', removeStar);
       star.addEventListener('webkitTransitionEnd', removeStar);
       star.addEventListener('oTransitionEnd', removeStar);
+      clearTimeout = setTimeout(removeStar, 4100);
     }
 
     vimverse.insertBefore(star, vimverse.firstChild);
